@@ -16,33 +16,14 @@
  * @author ebidel@ (Eric Bidelman) forked by Philip Tutty
  */
 
-/**
- * Discovers all the pages in site or single page app (SPA) and creates
- * a tree of the result in ./output/<site slug/crawl.json. Optionally
- * takes screenshots of each page as it is visited.
- *
- * Usage:
- *   node crawlsite.js
- *   URL=https://yourspa.com node crawlsite.js
- *   URL=https://yourspa.com node crawlsite.js --screenshots
- *
- * Then open the visualizer in a browser:
- *   http://localhost:8080/html/d3tree.html
- *   http://localhost:8080/html/d3tree.html?url=../output/https___yourspa.com/crawl.json
- *
- *Start Server:
- *   node server.js
- *
- */
 
+const config = require('./config');
 const fs = require('fs');
 const del = require('del');
 const util = require('util');
 const puppeteer = require('puppeteer');
 const sharp = require('sharp');
-
-const URL = process.env.URL || 'https://warwick.ac.uk/services/careers';
-
+const URL = config.host + config.path;
 
 const SCREENSHOTS = process.argv.includes('--screenshots');
 const DEPTH = parseInt(process.env.DEPTH) || 2;
