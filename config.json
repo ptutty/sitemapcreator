@@ -1,5 +1,6 @@
 {
     "host": "https://warwick.ac.uk",
-    "path": "/services/careers/"
+    "path": "/services/careers/",
+    "depth": 2
 }
 
