@@ -1,7 +1,7 @@
 {
     "host": "https://www.warwick.ac.uk",
     "path": "/services/careers/",
-    "depth": 2,
+    "depth": 4,
     "headless": true
 }
 
