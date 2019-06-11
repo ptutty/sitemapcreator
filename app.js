@@ -35,22 +35,26 @@ const VIEWPORT = SCREENSHOTS ? {
 } : null;
 
 
- (async () => {
+(async () => {
 
-     helpers.mkdirSync(OUT_DIR); // create output dir if it doesn't exist.
-     await del([`${OUT_DIR}/*`]); // cleanup after last run.
+    helpers.mkdirSync(OUT_DIR); // create output dir if it doesn't exist.
+    await del([`${OUT_DIR}/*`]); // cleanup after last run.
 
-     const browser = await puppeteer.launch();
-     const page = await browser.newPage();
-     if (VIEWPORT) {
-         await page.setViewport(VIEWPORT);
-     }
+    const browser = await puppeteer.launch({
+        headless: false
+    });
+    // const browser = await puppeteer.launch();
 
-     const root = {
-         url: URL
-     };
-     await crawler.crawl(browser, root);
-     await util.promisify(fs.writeFile)(`./${OUT_DIR}/crawl.json`, JSON.stringify(root, null, ' '));
-     await browser.close();
+    const page = await browser.newPage();
+    if (VIEWPORT) {
+        await page.setViewport(VIEWPORT);
+    }
 
- })();
+    const root = {
+        url: URL
+    };
+    await crawler.crawl(browser, root);
+    await util.promisify(fs.writeFile)(`./${OUT_DIR}/crawl.json`, JSON.stringify(root, null, ' '));
+    await browser.close();
+
+})();

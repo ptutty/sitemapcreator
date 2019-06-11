@@ -1,4 +1,6 @@
 
+const config = require('./config');
+
 module.exports = {
 
     /**
@@ -7,7 +9,7 @@ module.exports = {
      * @param {boolean=} sameOrigin When true, only considers links from the same origin as the app.
      * @return {!Array<string>} List of anchor hrefs.
      */
-    collectAllSameOriginAnchorsDeep(sameOrigin = true) {
+    collectAllSameOriginAnchorsDeep(sameOrigin = false) {
         const allElements = [];
 
         const findAllElements = function (nodes) {
@@ -25,8 +27,6 @@ module.exports = {
         const filtered = allElements
             .filter(el => el.localName === 'a' && el.href) // element is an anchor with an href.
             .filter(el => el.href !== location.href) // link doesn't point to page's own URL.
-            .filter(el => el.href.includes("/services/careers/") === true) // filter out parent pages - URLs not under /services/
-            .filter(el => el.href.includes("/#main") === false) // filter out anchors
             .filter(el => {
                 if (sameOrigin) {
                     return new URL(location).origin === new URL(el.href).origin;

@@ -23,16 +23,16 @@ module.exports = {
             // If we've already crawled the URL, we know its children.
             if (crawledPages.has(page.url)) {
                 console.log(`Reusing route: ${page.url}`);
-                const item = crawledPages.get(page.url);
-                page.title = item.title;
-                page.img = item.img;
-                page.children = item.children;
-                // Fill in the children with details (if they already exist).
-                page.children.forEach(c => {
-                    const item = crawledPages.get(c.url);
-                    c.title = item ? item.title : '';
-                    c.img = item ? item.img : null;
-                });
+                // const item = crawledPages.get(page.url);
+                // page.title = item.title;
+                // page.img = item.img;
+                // page.children = item.children;
+                // // Fill in the children with details (if they already exist).
+                // page.children.forEach(c => {
+                //     const item = crawledPages.get(c.url);
+                //     c.title = item ? item.title : '';
+                //     c.img = item ? item.img : null;
+                // });
                 return;
             } else {
                 console.log(`Loading: ${page.url}`);
@@ -43,25 +43,33 @@ module.exports = {
                 });
 
                 let anchors = await newPage.evaluate(pageHrefs.collectAllSameOriginAnchorsDeep);
-                anchors = anchors.filter(a => a !== URL) // link doesn't point to start url of crawl.
+                anchors = anchors
+                    .filter(a => a.includes(config.path) === true)
+                    .filter(a => a.includes("#") !== true) // filter out anchors
+                    .filter(a => a.includes("/intranet/") !== true) // filter out intranet
+                    .filter(a => a.endsWith(config.path) !== true) // filter links back to homepage i.e. "service/careers/"
+                    .filter(a => a.includes("/tutors/") !== true) // filter out tutors (intranet)
+                    .filter(a => a.includes("?external") !== true) // filter out query strings (text only links)
+                    .filter(a => a.includes("https://websignon.warwick.ac.uk") !== true) // filter out signing  (SSO)
+                    .filter(a => a.includes(".pdf") !== true) // filter out pdf links
+                    
 
                 page.title = await newPage.evaluate('document.title');
                 page.children = anchors.map(url => ({
                     url
                 }));
 
-                if (SCREENSHOTS) {
-                    const path = `./${OUT_DIR}/${slugify(page.url)}.png`;
-                    let imgBuff = await newPage.screenshot({
-                        fullPage: false
-                    });
-                    imgBuff = await sharp(imgBuff).resize(null, 150).toBuffer(); // resize image to 150 x auto.
-                    util.promisify(fs.writeFile)(path, imgBuff); // async
-                    page.img = `data:img/png;base64,${imgBuff.toString('base64')}`;
-                }
+                // if (SCREENSHOTS) {
+                //     const path = `./${OUT_DIR}/${slugify(page.url)}.png`;
+                //     let imgBuff = await newPage.screenshot({
+                //         fullPage: false
+                //     });
+                //     imgBuff = await sharp(imgBuff).resize(null, 150).toBuffer(); // resize image to 150 x auto.
+                //     util.promisify(fs.writeFile)(path, imgBuff); // async
+                //     page.img = `data:img/png;base64,${imgBuff.toString('base64')}`;
+                // }
 
                 crawledPages.set(page.url, page); // cache it.
-
                 await newPage.close();
             }
 
