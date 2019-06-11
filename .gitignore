@@ -1,0 +1,6 @@
+*.png
+*.pdf
+output/*
+!output/.keep
+node_modules/
+*error.log
