@@ -9,13 +9,13 @@ takes screenshots of each page as it is visited.
 
 [Demo website](https://xenodochial-lamport-efa047.netlify.com/) 
 
-### Prerequistes 
+## Prerequistes 
 
 - Node v8+
 
 Install Node using [HomeBrew on Mac](https://www.dyclassroom.com/howto-mac/how-to-install-nodejs-and-npm-on-mac-using-homebrew)
 
-### download project and install dependancies
+## Download project and install dependancies
 
 ```console
 clone https://github.com/ptutty/sitemapcreator
@@ -23,7 +23,7 @@ cd sitemapcreator
 npm install
 ```
 
-### Config
+## Setup Configuration file
 
 - edit config-sample.json and rename config.json, add the URL details of the site you wish to crawl
 - depth is how many levels to crawl
@@ -39,7 +39,7 @@ npm install
 }
 ```
 
-### Filters
+## Filters
 
 Filter allow you to remove unwanted cruff from the visualisation, such as: page anchors links, links back to the homepage, links to documents, intranet links etc. See the array 'excludeAnchorsWhichContain' below
 
@@ -63,7 +63,7 @@ Sometime you may wish not to crawl the navigation again on each subpage, you can
 
 
 
-### Start a crawl
+## Start a crawl and capture data
 
 To start a crawl, run the command below in the console - make sure you are in the project directory.
 
@@ -77,7 +77,7 @@ You can also run a crawl and capture optional screenshots
   node app.js --screenshots
 ```
 
-### View the visualisation
+## View the visualisation
 
 Start a local server.
 
