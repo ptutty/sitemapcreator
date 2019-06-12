@@ -10,11 +10,13 @@ takes screenshots of each page as it is visited.
 
 - Node v8+
 
-### Install
+Install Node using [HomeBrew on Mac](https://www.dyclassroom.com/howto-mac/how-to-install-nodejs-and-npm-on-mac-using-homebrew)
+
+### download project and install dependancies
 
 ```console
-clone repo to local machine](https://github.com/ptutty/sitemapcreator
-CD sitemapcreator
+clone https://github.com/ptutty/sitemapcreator
+cd sitemapcreator
 npm install
 ```
 
