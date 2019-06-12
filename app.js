@@ -7,6 +7,7 @@ const puppeteer = require('puppeteer');
 const del = require('del');
 const util = require('util');
 const fs = require('fs');
+const stringify = require('json-stringify-safe');
 
 const config = require('./config');
 const helpers = require('./helpers');
@@ -40,7 +41,7 @@ const VIEWPORT = SCREENSHOTS ? {
         url: URL
     };
     await crawler.crawl(browser, root);
-    await util.promisify(fs.writeFile)(`./${OUT_DIR}/crawl.json`, JSON.stringify(root, null, ' '));
+    await util.promisify(fs.writeFile)(`./${OUT_DIR}/crawl.json`, stringify(root, null, ' '));
     await browser.close();
 
 })();

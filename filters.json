@@ -9,21 +9,18 @@
         "services/careers",
         "/diversity",
         "/international",
-        "/contact"
+        "/contact",
+        "/workingabroad/"
     ],
     "excludeAnchorsWhichContain" : [
         "/employers/",
         "#",
         "/intranet/",
-        "/applications/",
-        "/graduates/",
-        "/help/",
         "/tutors/",
         "?external",
         "https://websignon.warwick.ac.uk",
         ".pdf",
         "docx",
         "doc"
-
     ]
 }
