@@ -22,7 +22,7 @@ npm install
 
 ### Config
 
-- edit config-sample.json and rename config.json, add your site details
+- edit config-sample.json and rename config.json, add the URL details of the site you wish to crawl
 - depth is how many levels to crawl
 - if you wish to test you may find it useful to set headless: false so see what is going on.
 - the filter flag allows you to cusomize anchors link which are crawled
@@ -38,7 +38,7 @@ npm install
 
 ### Filters
 
-filter allow you to remove unwanter cruff from the visualisation if needs be such as in page anchors links, links back to the homepage, links to documents, intranet links etc. See the array 'excludeAnchorsWhichContain' below
+Filter allow you to remove unwanted cruff from the visualisation, such as: page anchors links, links back to the homepage, links to documents, intranet links etc. See the array 'excludeAnchorsWhichContain' below
 
 Sometime you may wish not to crawl the navigation again on each subpage, you can list URL fragments in the array 'excludeSubpageAnchorsEndingWith'
 
@@ -60,28 +60,29 @@ Sometime you may wish not to crawl the navigation again on each subpage, you can
 
 
 
-### usage
+### Start a crawl
 
-any of the following:
+To start a crawl, run the command below in the console - make sure you are in the project directory.
 
 ```console
   node app.js
 ```
-or with optional screenshots
+You will see URL's being crawled in the console.
+You can also run a crawl and capture optional screenshots
 
 ```console
   node app.js --screenshots
 ```
 
-### Start a local server to view the results of crawler in d3:
+### View the visualisation
+
+Start a local server.
 
 ```console
   node server.js
 ```
+Then open the URL below in a browser:
 
-
-### Then open the visualizer in a browser:
-
-  http://localhost:8080/html/d3tree.html?url=../output/https___yourspa.com/crawl.json
+http://localhost:8080/html/d3tree.html?url=../output/https___yourspa.com/crawl.json
 
 
