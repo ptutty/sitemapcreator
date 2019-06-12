@@ -5,6 +5,9 @@ Discovers all the pages in site or single page app (SPA) and creates
 a tree of the result in ./output/<site slug/crawl.json. Optionally
 takes screenshots of each page as it is visited.
 
+## Demo
+
+[Demo website](https://xenodochial-lamport-efa047.netlify.com/) 
 
 ### Prerequistes 
 
