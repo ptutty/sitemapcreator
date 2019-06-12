@@ -1,7 +1,12 @@
 const sharp = require('sharp');
 const pageHrefs = require('./get_page_anchors');
 const config = require('./config');
-const filters = require('./filters');
+
+if (config.filters === true) {
+    var filters = require('./filters');
+    
+};
+
 const DEPTH = config.depth;
 const URL = config.host + config.path;
 const crawledPages = new Map();
@@ -47,23 +52,25 @@ module.exports = {
 
             let anchors = await newPage.evaluate(pageHrefs.collectAllSameOriginAnchorsDeep);
 
-            // Don't crawl these links as we are now on subpages (top nav and footer)
-            if (depth > 0) {
-                filters.excludeSubpageAnchorsEndingWith.forEach((item) => {
-                    anchors = anchors.filter(a => a.endsWith(item) !== true);
+            /** optional filters to remove unwanted links from final visualisation **/
+            if (config.filters === true) {
+                // general filters applied to all URL's crawled 
+                filters.excludeAnchorsWhichContain.forEach((item) => {
+                    anchors = anchors
+                        .filter(a => a.includes(item) !== true)
                 })
-            }
-
-            // warwick.ac.uk/careers/services general filters see filter.json
-            filters.excludeAnchorsWhichContain.forEach((item) => {
                 anchors = anchors
-                    .filter(a => a.includes(item) !== true)
-            })
+                    .filter(a => a.endsWith(config.path) !== true) // filter links back to homepage i.e. "service/careers/"
+                    .filter(a => a.includes(config.path) === true)
 
-            anchors = anchors
-                .filter(a => a.endsWith(config.path) !== true) // filter links back to homepage i.e. "service/careers/"
-                .filter(a => a.includes(config.path) === true)
-
+                // subpages filters only
+                if (depth > 0) {
+                    filters.excludeSubpageAnchorsEndingWith.forEach((item) => {
+                        anchors = anchors.filter(a => a.endsWith(item) !== true);
+                    })
+                }
+            }
+            
             page.title = await newPage.evaluate('document.title');
             page.children = anchors.map(url => ({
                 url

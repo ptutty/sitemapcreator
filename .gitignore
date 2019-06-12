@@ -1,5 +1,6 @@
 *.png
 *.pdf
+config.json
 output/*
 !output/.keep
 node_modules/

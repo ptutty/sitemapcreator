@@ -6,29 +6,56 @@ a tree of the result in ./output/<site slug/crawl.json. Optionally
 takes screenshots of each page as it is visited.
 
 
-### prerequistes 
+### Prerequistes 
 
-- Node 
+- Node v8+
 
-### install
+### Install
 
-- clone repo to local machine
-- CD into install directory
-- npm install (to install dependencies)
+```console
+clone repo to local machine](https://github.com/ptutty/sitemapcreator
+CD sitemapcreator
+npm install
+```
 
+### Config
 
-### config
-
-- edit config.json and add your site details
+- edit config-sample.json and rename config.json, add your site details
 - depth is how many levels to crawl
-
+- if you wish to test you may find it useful to set headless: false so see what is going on.
+- the filter flag allows you to cusomize anchors link which are crawled
 ```js
 {
-    "host": "https://warwick.ac.uk",
-    "path": "/services/careers/",
-    "depth": 2
+    "host": "https://www.bbc.co.uk",
+    "path": "/sport",
+    "depth": 2,
+    "headless": true,
+    "filters": false
 }
 ```
+
+### Filters
+
+filter allow you to remove unwanter cruff from the visualisation if needs be such as in page anchors links, links back to the homepage, links to documents, intranet links etc. See the array 'excludeAnchorsWhichContain' below
+
+Sometime you may wish not to crawl the navigation again on each subpage, you can list URL fragments in the array 'excludeSubpageAnchorsEndingWith'
+
+```js
+{ 
+    "excludeSubpageAnchorsEndingWith" : [
+        "/live/",
+        "/programmes/",
+    ],
+    "excludeAnchorsWhichContain" : [
+        "#",
+        ".pdf",
+        "docx",
+        "doc"
+    ]
+}
+
+```
+
 
 
 ### usage
@@ -37,7 +64,10 @@ any of the following:
 
 ```console
   node app.js
-  node app.js
+```
+or with optional screenshots
+
+```console
   node app.js --screenshots
 ```
 

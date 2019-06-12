@@ -1,0 +1,8 @@
+{
+    "host": "www.bbc.co.uk",
+    "path": "/sports",
+    "depth": 3,
+    "headless": true,
+    "filters": false
+}
+
