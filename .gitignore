@@ -1,6 +1,7 @@
 *.png
 *.pdf
-config.json
+/config.json
+/package-lock.json
 output/*
 !output/.keep
 node_modules/
